@@ -12,5 +12,7 @@
         <item name="android:windowBackground">@drawable/splash_logo2</item>
     </style>
 
+    <style name="ButtonStyle"></style>
+
 
 </resources>

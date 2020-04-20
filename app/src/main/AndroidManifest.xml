@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MenuDetail"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".DinerList" />
         <activity
             android:name=".SplashActivity"

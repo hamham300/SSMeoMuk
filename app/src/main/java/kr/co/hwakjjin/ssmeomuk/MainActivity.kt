@@ -54,11 +54,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("title", "7000 ~")
             startActivity(intent)
         })
-        /*
+
         test_btn.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, LoginActivity::class.java)
-            intent.putExtra("title", "~5000")
             startActivity(intent)
-        })*/
+        })
     }
 }
