@@ -56,8 +56,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="평점"
                 app:layout_constraintBottom_toTopOf="@+id/rating"
@@ -66,20 +66,21 @@
             <RatingBar
                 android:id="@+id/rating"
                 style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="36dp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
                 android:layout_marginBottom="8dp"
                 android:numStars="5"
                 android:rating="4.5"
-                android:stepSize="1"
+                android:stepSize="0.1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/txt_rating"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_menu_price" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_menu_price"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/txt_rating"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
                 android:text="5.0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -122,12 +123,13 @@
             <RatingBar
                 android:id="@+id/rating_store"
                 style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginTop="4dp"
+                android:max="5"
                 android:numStars="5"
                 android:rating="4.5"
-                android:stepSize="1"
+                android:stepSize="0.1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toStartOf="parent"
@@ -194,6 +196,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <RatingBar
+            android:id="@+id/rating_best"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="4dp"
+            android:max="5"
+            android:numStars="5"
+            android:rating="4.5"
+            android:stepSize="1"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="30dp"
@@ -244,10 +261,10 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ListView
-        android:id="@+id/listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reviewList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:divider="#ffffff"
@@ -257,6 +274,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
