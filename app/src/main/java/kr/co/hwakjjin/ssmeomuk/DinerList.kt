@@ -159,7 +159,16 @@ class DinerList : AppCompatActivity() {
 
                 val adapter = DinerListAdapter(context, mList){ MenuData ->
                     val intent = Intent(applicationContext, MenuDetail::class.java)
-                    //intent.putExtra("data", menuData)
+                    intent.putExtra("code", MenuData.getCode())
+                    intent.putExtra("foodPic", MenuData.getFoodPic())
+                    intent.putExtra("txt_menu", MenuData.getMenuTxt())
+                    intent.putExtra("txt_diner", MenuData.getDiner())
+                    intent.putExtra("rate", MenuData.getRate())
+                    intent.putExtra("price", MenuData.getPrice())
+                    intent.putExtra("bestReviewer", MenuData.getBestReviewer())
+                    intent.putExtra("bestReview", MenuData.getBestReview())
+                    intent.putExtra("bestReviewUp", MenuData.getBestReviewUp())
+
                     startActivity(intent)
                 }
                 recyclerview.adapter = adapter
