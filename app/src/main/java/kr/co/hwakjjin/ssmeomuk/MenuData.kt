@@ -1,6 +1,7 @@
 package kr.co.hwakjjin.ssmeomuk
 
 class MenuData(
+    code : String,
     foodPic: Int,
     txt_menu: String,
     txt_diner: String,
@@ -10,6 +11,7 @@ class MenuData(
     bestReview: String,
     bestReviewUp: Int
 ) {
+    private var code = ""
     private var foodPic = 0
     private var txt_menu: String = ""
     private var txt_diner: String = ""
@@ -20,6 +22,7 @@ class MenuData(
     private var bestReviewUp = 0
 
     init{
+        this.code = code
         this.foodPic = foodPic
         this.txt_menu = txt_menu
         this.txt_diner = txt_diner
@@ -30,6 +33,10 @@ class MenuData(
         this.bestReviewUp = bestReviewUp
     }
 
+
+    fun getCode(): String? {
+        return code
+    }
 
     fun getFoodPic(): Int {
         return foodPic

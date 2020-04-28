@@ -93,16 +93,66 @@ class DinerList : AppCompatActivity() {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 val value = dataSnapshot.value
-                if(value is ArrayList<*>){
+                if(value is HashMap<*,*>){
                     for (hash in value){
-                        if(hash is HashMap<*, *>){
-                            val pStr = hash["price"].toString()
+                        val code = hash.key;
+                        val content = hash.value;
+                        if(content is HashMap<*,*>) {
+                            val pStr = content["price"].toString()
                             val price = Integer.parseInt(pStr)
 
-                            if(price <= 5000 && title == "~ 5000")  mList.add(MenuData(R.drawable.sausagerice,  hash["txt_menu"].toString(),hash["txt_diner"].toString(), hash["rate"].toString().toFloat(), price,  hash["bestReviewer"].toString(), hash["bestReview"].toString(), hash["bestReviewUp"].toString().toInt()))
-                            else if(price in 5000..6000 && title == "5000 ~ 6000")  mList.add(MenuData(R.drawable.sausagerice,  hash["txt_menu"].toString(),hash["txt_diner"].toString(), hash["rate"].toString().toFloat(), price,  hash["bestReviewer"].toString(), hash["bestReview"].toString(), hash["bestReviewUp"].toString().toInt()))
-                            else if(price in 6000..7000 && title == "6000 ~ 7000") mList.add(MenuData(R.drawable.sausagerice,  hash["txt_menu"].toString(),hash["txt_diner"].toString(), hash["rate"].toString().toFloat(), price,  hash["bestReviewer"].toString(), hash["bestReview"].toString(), hash["bestReviewUp"].toString().toInt()))
-                            else if(price >= 7000 && title == "7000 ~") mList.add(MenuData(R.drawable.sausagerice,  hash["txt_menu"].toString(),hash["txt_diner"].toString(), hash["rate"].toString().toFloat(), price,  hash["bestReviewer"].toString(), hash["bestReview"].toString(), hash["bestReviewUp"].toString().toInt()))
+                            if (price <= 5000 && title == "~ 5000") mList.add(
+                                MenuData(
+                                    code.toString(),
+                                    R.drawable.sausagerice,
+                                    content["txt_menu"].toString(),
+                                    content["txt_diner"].toString(),
+                                    content["rate"].toString().toFloat(),
+                                    price,
+                                    content["bestReviewer"].toString(),
+                                    content["bestReview"].toString(),
+                                    content["bestReviewUp"].toString().toInt()
+                                )
+                            )
+                            else if (price in 5000..6000 && title == "5000 ~ 6000") mList.add(
+                                MenuData(
+                                    code.toString(),
+                                    R.drawable.sausagerice,
+                                    content["txt_menu"].toString(),
+                                    content["txt_diner"].toString(),
+                                    content["rate"].toString().toFloat(),
+                                    price,
+                                    content["bestReviewer"].toString(),
+                                    content["bestReview"].toString(),
+                                    content["bestReviewUp"].toString().toInt()
+                                )
+                            )
+                            else if (price in 6000..7000 && title == "6000 ~ 7000") mList.add(
+                                MenuData(
+                                    code.toString(),
+                                    R.drawable.sausagerice,
+                                    content["txt_menu"].toString(),
+                                    content["txt_diner"].toString(),
+                                    content["rate"].toString().toFloat(),
+                                    price,
+                                    content["bestReviewer"].toString(),
+                                    content["bestReview"].toString(),
+                                    content["bestReviewUp"].toString().toInt()
+                                )
+                            )
+                            else if (price >= 7000 && title == "7000 ~") mList.add(
+                                MenuData(
+                                    code.toString(),
+                                    R.drawable.sausagerice,
+                                    content["txt_menu"].toString(),
+                                    content["txt_diner"].toString(),
+                                    content["rate"].toString().toFloat(),
+                                    price,
+                                    content["bestReviewer"].toString(),
+                                    content["bestReview"].toString(),
+                                    content["bestReviewUp"].toString().toInt()
+                                )
+                            )
                         }
                     }
                 }
@@ -126,10 +176,5 @@ class DinerList : AppCompatActivity() {
             }
         })
 
-       // mList.add(MenuData(R.drawable.sausagerice, "소시지필라프 ","3pop", 4.0f, 5000, "jeon", "맛있노", 5))
-       // mList.add(MenuData(R.drawable.galbimandu, "갈비만두", "3pop",4.3f, 4000, "kim", "gglglaslaslfasdgj", 3))
-       // mList.add(MenuData(R.drawable.cheesestick, "치즈스틱", "3pop",4.0f, 5000, "park", "asdasdasdas", 5))
-       // mList.add(MenuData(R.drawable.gyojamandu, "교자만두시발새기ㅏ듬ㄴㄹㄴㅇ", "조온나긴이름이다시발롬들아",4.0f, 5000, "john", "afdffds", 13))
-       // mList.add(MenuData(R.drawable.kimchirice, "김치두루치기 덮밥", "3pop",4.0f, 5000, "igi", "00asdf8ags", 45))
     }
 }
