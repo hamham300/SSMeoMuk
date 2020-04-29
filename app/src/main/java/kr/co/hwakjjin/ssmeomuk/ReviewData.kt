@@ -8,14 +8,14 @@ class ReviewData(
     Review: String,
     Rate: Float,
     Up: Int,
-    Date: Int
+    Date: String
 ) {
     private var code = ""
     private var ID = ""
     private var Review = ""
     private var Rate = 0f
     private var Up = 0
-    private var Date = 0
+    private var Date = ""
 
     init {
         this.code = code
@@ -45,7 +45,7 @@ class ReviewData(
         return Up
     }
 
-    fun getDate(): Int?{
+    fun getDate(): String?{
         return Date
     }
 

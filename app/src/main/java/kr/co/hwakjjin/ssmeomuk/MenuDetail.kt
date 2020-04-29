@@ -3,6 +3,7 @@ package kr.co.hwakjjin.ssmeomuk
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AlertDialog
@@ -17,9 +18,13 @@ import com.naver.maps.map.CameraUpdate
 import kotlinx.android.synthetic.main.activity_diner_list.*
 import kotlinx.android.synthetic.main.activity_menu_detail.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 class MenuDetail : AppCompatActivity() {
-
+    private var rList = arrayListOf<ReviewData>()
+    var context= this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_detail)
@@ -53,6 +58,21 @@ class MenuDetail : AppCompatActivity() {
             }
             dialogBtnEnroll.setOnClickListener {
                 //Toast.makeText(this,"aaaa",LENGTH_LONG).show()
+
+                val database = FirebaseDatabase.getInstance()
+                val reviewPath = "0/review/"+menuCode
+                val reviewRef = database.getReference(reviewPath)
+
+                val date = Date(System.currentTimeMillis())
+                val sdfNow = SimpleDateFormat("yyyyMMddHHmmss");
+                val strDate = sdfNow.format(date);
+                val randKey = Random().nextInt()
+
+                val myReview = ReviewData(strDate+randKey.toString(),dialogEditNick.text.toString(),dialogEditReview.text.toString(),dialogRate.rating,0,strDate)
+
+                reviewRef.child(strDate+randKey.toString()).setValue(myReview)
+
+
                 dialog.dismiss()
             }
             dialog.setView(dialogView)
@@ -74,6 +94,44 @@ class MenuDetail : AppCompatActivity() {
                 txt_store_location.text  = value["location"].toString()
                 txt_store_rate.text = value["rate"].toString()+ "/ 5.0"
                 rating_store.rating = value["rate"].toString().toFloat()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+            }
+        })
+
+        val reviewPath = "0/review/"+menuCode
+        val reviewRef = database.getReference(reviewPath)
+
+        reviewRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                if(dataSnapshot.exists()){
+                    val value = dataSnapshot.value
+                    value as HashMap <*,*>
+                    for (hash in value) {
+                        val content = hash.value;
+                        if (content is HashMap<*, *>) {
+                            val pStr = content["price"].toString()
+
+                            rList.add(ReviewData(content["code"].toString(),content["id"].toString(),content["review"].toString(),
+                                content["rate"].toString().toFloat(),content["up"].toString().toInt(),content["date"].toString()))
+                        }
+                    }
+                    val adapter = ReviewListAdapter(context, rList){ ReviewData->
+
+                    }
+                    reviewList.adapter = adapter
+                    reviewList.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
+                    val lm = LinearLayoutManager(context)
+                    reviewList.layoutManager = lm
+                    reviewList.setHasFixedSize(true)
+
+                }
+
 
             }
 
