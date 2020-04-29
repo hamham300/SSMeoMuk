@@ -1,5 +1,6 @@
 package kr.co.hwakjjin.ssmeomuk
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // sharedPreference 초기화
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val ed = pref.edit()
+        ed.clear()
+        ed.apply()
 
         btn_price.setOnClickListener(View.OnClickListener {
             price_select_layout.visibility = View.VISIBLE

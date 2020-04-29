@@ -1,5 +1,6 @@
 package kr.co.hwakjjin.ssmeomuk
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -53,27 +54,55 @@ class MenuDetail : AppCompatActivity() {
             val dialogEditReview = dialogView.findViewById<EditText>(R.id.edit_review)
             val dialogTxtRate =  dialogView.findViewById<TextView>(R.id.txt_rate)
             val dialogBtnEnroll = dialogView.findViewById<Button>(R.id.btn_enroll)
+
+            val database = FirebaseDatabase.getInstance()
+            val reviewPath = "0/review/"+menuCode
+            val reviewRef = database.getReference(reviewPath)
+
+            val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
+
+            val reviewHistory = pref.getString(menuCode,"")
+            if(reviewHistory != ""){ // 이미 작성글이 있다.
+                for(rData in rList){ // 수정하도록 변경
+                    if(rData.getCode() == reviewHistory){
+                        dialogEditNick.setText(rData.getID())
+                        dialogRate.rating= rData.getRate()!!
+                        dialogTxtRate.text = rData.getRate().toString() + "/ 5.0"
+                        dialogBtnEnroll.text = "수정"
+                        dialogEditReview.setText(rData.getReview())
+                    }
+                }
+            }
+
             dialogRate.setOnRatingBarChangeListener { ratingBar, fl, b ->
                 dialogTxtRate.text = fl.toString() + "/ 5.0"
             }
             dialogBtnEnroll.setOnClickListener {
-                //Toast.makeText(this,"aaaa",LENGTH_LONG).show()
 
-                val database = FirebaseDatabase.getInstance()
-                val reviewPath = "0/review/"+menuCode
-                val reviewRef = database.getReference(reviewPath)
 
                 val date = Date(System.currentTimeMillis())
                 val sdfNow = SimpleDateFormat("yyyyMMddHHmmss");
                 val strDate = sdfNow.format(date);
                 val randKey = Random().nextInt()
+                val myReview: ReviewData
 
-                val myReview = ReviewData(strDate+randKey.toString(),dialogEditNick.text.toString(),dialogEditReview.text.toString(),dialogRate.rating,0,strDate)
+                if(reviewHistory != ""){// 이미 작성글이 있다.
+                    myReview = ReviewData(reviewHistory!!,dialogEditNick.text.toString(),dialogEditReview.text.toString(),dialogRate.rating,0,strDate)
+                    var map = mutableMapOf<String,ReviewData>()
+                    map[reviewHistory] = myReview
+                    reviewRef.updateChildren(map as Map<String, Any>)
+                }else{
+                    myReview = ReviewData(strDate+randKey.toString(),dialogEditNick.text.toString(),dialogEditReview.text.toString(),dialogRate.rating,0,strDate)
+                    reviewRef.child(strDate+randKey.toString()).setValue(myReview)
+                    val ed = pref.edit()
+                    ed.putString(menuCode,strDate+randKey.toString()) //내가쓴 리뷰의 리뷰코드를 기기내에 가지고있는다.
+                    ed.apply()
+                }
 
-                reviewRef.child(strDate+randKey.toString()).setValue(myReview)
 
 
                 dialog.dismiss()
+                reviewList.adapter?.notifyDataSetChanged()
             }
             dialog.setView(dialogView)
             dialog.show()
@@ -109,6 +138,7 @@ class MenuDetail : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                rList.clear()
                 if(dataSnapshot.exists()){
                     val value = dataSnapshot.value
                     value as HashMap <*,*>
