@@ -3,6 +3,9 @@ package kr.co.hwakjjin.ssmeomuk
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.*
+import android.widget.Toast.LENGTH_LONG
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -34,6 +37,28 @@ class MenuDetail : AppCompatActivity() {
         txt_menu_price?.text = moneyComma.format(intent.extras!!.getInt("price")) + "원"
         txt_store_name?.text = dinerName
         txt_bestReview?.text = intent.extras!!.getString("bestReviewer")+" : "+ intent.extras!!.getString("bestReview")
+
+        btn_review.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val dialog  = builder.create()
+
+            val dialogView = layoutInflater.inflate(R.layout.dialog_review, null)
+            val dialogEditNick = dialogView.findViewById<EditText>(R.id.edit_nick)
+            val dialogRate = dialogView.findViewById<RatingBar>(R.id.review_rate)
+            val dialogEditReview = dialogView.findViewById<EditText>(R.id.edit_review)
+            val dialogTxtRate =  dialogView.findViewById<TextView>(R.id.txt_rate)
+            val dialogBtnEnroll = dialogView.findViewById<Button>(R.id.btn_enroll)
+            dialogRate.setOnRatingBarChangeListener { ratingBar, fl, b ->
+                dialogTxtRate.text = fl.toString() + "/ 5.0"
+            }
+            dialogBtnEnroll.setOnClickListener {
+                //Toast.makeText(this,"aaaa",LENGTH_LONG).show()
+                dialog.dismiss()
+            }
+            dialog.setView(dialogView)
+            dialog.show()
+
+        }
 
         val database = FirebaseDatabase.getInstance()
         val dinerPath = "0/diner/"+dinerName
