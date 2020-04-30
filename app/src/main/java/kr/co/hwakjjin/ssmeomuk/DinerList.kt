@@ -80,6 +80,10 @@ class DinerList : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+       // setListData()
+    }
 
     private fun setListData() {
 

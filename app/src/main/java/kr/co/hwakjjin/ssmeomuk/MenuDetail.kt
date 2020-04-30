@@ -45,6 +45,7 @@ class MenuDetail : AppCompatActivity() {
         txt_menu_price?.text = moneyComma.format(intent.extras!!.getInt("price")) + "원"
         txt_store_name?.text = dinerName
         txt_bestReview?.text = intent.extras!!.getString("bestReviewer")+" : "+ intent.extras!!.getString("bestReview")
+        bestReviewUp?.text = intent.extras!!.getInt("bestReviewUp").toString()
 
         btn_up?.isChecked
         btn_up?.setChecked(true,true)
@@ -167,6 +168,8 @@ class MenuDetail : AppCompatActivity() {
 
         val reviewPath = "0/review/"+menuCode
         val reviewRef = database.getReference(reviewPath)
+        val menuDataPath = "0/menu/"+menuCode
+        val menuDataRef = database.getReference(menuDataPath)
 
         reviewRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -187,7 +190,7 @@ class MenuDetail : AppCompatActivity() {
                     }
                     val adapter = ReviewListAdapter(context, rList, UpList){ ReviewData->
                         var isClicked = false
-                        var thisUp = ReviewData.getUp()
+                        val thisUp = ReviewData.getUp()
                         if(!UpList.isEmpty()) {
                             var delIndex = -1
                             UpList.forEachIndexed { index, s ->
@@ -201,6 +204,21 @@ class MenuDetail : AppCompatActivity() {
                             UpList.removeAt(delIndex)
                             if (thisUp != null) {
                                 reviewRef.child(ReviewData.getCode().toString()).child("up").setValue(thisUp-1)
+
+                                if( (ReviewData.getID()+" : "+ ReviewData.getReview() )== txt_bestReview?.text){ //최고리뷰 따봉 취소 // 최고리뷰인지 알아내는 코드 위험성 존재
+                                    menuDataRef.child("bestReviewUp").setValue(thisUp-1)
+                                    for(rv in rList){
+                                        if(rv.getUp()!! > (thisUp-1)){ // 만약 리뷰들중에 지금 이거 따봉 취소하면 최고리뷰가 바뀐다
+                                            menuDataRef.child("bestReview").setValue(rv.getReview())
+                                            menuDataRef.child("bestReviewer").setValue(rv.getID())
+                                            menuDataRef.child("bestReviewUp").setValue(rv.getUp())
+                                            txt_bestReview?.text = rv.getID()+" : "+ rv.getReview()
+                                            txt_best_rate?.text = ReviewData.getRate().toString()
+                                            bestReviewUp?.text = rv.getUp().toString()
+                                            break
+                                        }
+                                    }
+                                }
                             }
                         }
 
@@ -208,6 +226,15 @@ class MenuDetail : AppCompatActivity() {
                             UpList.add( ReviewData.getCode().toString()) // 해당 리뷰의 코드를 SharedPreferences에 저장후
                             if (thisUp != null) {
                                 reviewRef.child(ReviewData.getCode().toString()).child("up").setValue(thisUp+1)
+                                if ((thisUp+1) > ((bestReviewUp.text as String).toInt())){ // 따봉을 줘가지고 준게 최고 따봉이 되었다.
+                                    menuDataRef.child("bestReview").setValue(ReviewData.getReview())
+                                    menuDataRef.child("bestReviewer").setValue(ReviewData.getID())
+                                    menuDataRef.child("bestReviewUp").setValue(thisUp+1)
+                                    //menuDataRef.child("bestReviewCode").setValue(ReviewData.getCode())
+                                    txt_bestReview?.text = ReviewData.getID()+" : "+ ReviewData.getReview()
+                                    txt_best_rate?.text = ReviewData.getRate().toString()
+                                    bestReviewUp?.text = (thisUp+1).toString()
+                                }
                             }
                         }
 
