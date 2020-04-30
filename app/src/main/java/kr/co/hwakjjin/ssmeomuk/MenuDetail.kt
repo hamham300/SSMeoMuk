@@ -123,7 +123,17 @@ class MenuDetail : AppCompatActivity() {
                     ed.apply()
                 }
 
+                var rateAvg = 0.0f
+                for(rv in rList){
+                    rateAvg += rv.getRate()!!
+                }
+                rateAvg += myReview.getRate()!!
+                rating.rating = rateAvg/(rList.size+1)
+                txt_rating.text =  ( rateAvg/(rList.size+1)).toString() + "/ 5.0"
 
+
+
+                menuDataRef.child("rate").setValue( rateAvg/(rList.size+1))
 
                 dialog.dismiss()
                 reviewList.adapter?.notifyDataSetChanged()
@@ -177,6 +187,7 @@ class MenuDetail : AppCompatActivity() {
                     }
                     val adapter = ReviewListAdapter(context, rList, UpList){ ReviewData->
                         var isClicked = false
+                        var thisUp = ReviewData.getUp()
                         if(!UpList.isEmpty()) {
                             var delIndex = -1
                             UpList.forEachIndexed { index, s ->
@@ -188,10 +199,16 @@ class MenuDetail : AppCompatActivity() {
                             }
                             if(delIndex > -1)
                             UpList.removeAt(delIndex)
+                            if (thisUp != null) {
+                                reviewRef.child(ReviewData.getCode().toString()).child("up").setValue(thisUp-1)
+                            }
                         }
 
                         if(!isClicked){ // 이번에 새로 누름 -> 저장
                             UpList.add( ReviewData.getCode().toString()) // 해당 리뷰의 코드를 SharedPreferences에 저장후
+                            if (thisUp != null) {
+                                reviewRef.child(ReviewData.getCode().toString()).child("up").setValue(thisUp+1)
+                            }
                         }
 
                         val json = JSONArray()
