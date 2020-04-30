@@ -57,7 +57,9 @@ class MenuDetail : AppCompatActivity() {
 
             val database = FirebaseDatabase.getInstance()
             val reviewPath = "0/review/"+menuCode
+            val menuDataPath = "0/menu/"+menuCode
             val reviewRef = database.getReference(reviewPath)
+            val menuDataRef = database.getReference(menuDataPath)
 
             val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
 
@@ -159,16 +161,21 @@ class MenuDetail : AppCompatActivity() {
                     val lm = LinearLayoutManager(context)
                     reviewList.layoutManager = lm
                     reviewList.setHasFixedSize(true)
-
                 }
 
-
             }
-
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
             }
         })
+
+
+        fun refreshBestReview( list: ArrayList<ReviewData>){
+            for(rData in list){
+
+            }
+        }
+
 
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sackcentury.shinebuttonlib.ShineButton
 import java.util.ArrayList
 
 class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, val itemClick: (ReviewData)-> Unit) : RecyclerView.Adapter<ReviewListAdapter.Holder>() {
@@ -21,6 +22,8 @@ class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, 
         val reviewTxt =  view?.findViewById<TextView>(R.id.txt_review)
         val reviewUp = view?.findViewById<TextView>(R.id.reviewUp)
         val rate = view?.findViewById<RatingBar>(R.id.review_rate)
+        val rateText = view?.findViewById<TextView>(R.id.txt_review_rate)
+        val btnUp =  view?.findViewById<ShineButton>(R.id.btn_up)
 
         fun bind(review: ReviewData, context: Context , itemCount: Int){
 
@@ -28,6 +31,7 @@ class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, 
             reviewTxt?.text = review.getReview()
             reviewUp?.text = review.getUp().toString()
             rate?.rating = review.getRate()!!.toFloat()
+            rateText?.text =  review.getRate()!!.toFloat().toString()
 
             itemView.setOnClickListener { itemClick(review) }
         }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="65dp">
 
 
         <TextView
@@ -26,6 +26,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reviewer" />
 
@@ -43,29 +44,54 @@
             android:stepSize="0.1"
             app:layout_constraintStart_toEndOf="@+id/reviewer"
             app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txt_review_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="5.0"
+        app:layout_constraintStart_toEndOf="@+id/review_rate"
+        app:layout_constraintTop_toTopOf="@+id/review_rate" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:scaleType="fitXY"
-            app:layout_constraintStart_toEndOf="@+id/txt_review"
-            app:layout_constraintTop_toTopOf="@+id/txt_review"
-            app:srcCompat="@drawable/thumb_up_unvoted" />
+    <com.sackcentury.shinebuttonlib.ShineButton
+        android:id="@+id/btn_up"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:src="@android:color/darker_gray"
+        app:allow_random_color="false"
+        app:big_shine_color="#FF6666"
+        app:btn_color="@android:color/darker_gray"
+        app:btn_fill_color="#FF6666"
+        app:click_animation_duration="200"
+        app:enable_flashing="false"
+        app:layout_constraintStart_toEndOf="@+id/txt_review"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shine_animation_duration="1500"
+        app:shine_count="8"
+        app:shine_distance_multiple="1.5"
+        app:shine_turn_angle="10"
+        app:siShape="@raw/like"
+        app:small_shine_color="#CC9999"
+        app:small_shine_offset_angle="20" />
 
-        <TextView
+    <TextView
             android:id="@+id/reviewUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:text="0"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.111"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toEndOf="@+id/btn_up"
+            app:layout_constraintTop_toTopOf="@+id/btn_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
