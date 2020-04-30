@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sackcentury.shinebuttonlib.ShineButton
 import java.util.ArrayList
 
-class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, val itemClick: (ReviewData)-> Unit) : RecyclerView.Adapter<ReviewListAdapter.Holder>() {
+class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, val UpList: ArrayList<String>, val itemClick: (ReviewData)-> Unit) : RecyclerView.Adapter<ReviewListAdapter.Holder>() {
+
 
     override fun getItemCount(): Int {
         return data.size
@@ -33,7 +34,12 @@ class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, 
             rate?.rating = review.getRate()!!.toFloat()
             rateText?.text =  review.getRate()!!.toFloat().toString()
 
-            itemView.setOnClickListener { itemClick(review) }
+           if(checkAlreadyUp(review.getCode().toString())){
+               btnUp?.isChecked
+               btnUp?.setChecked(true,true)
+           }
+
+            btnUp?.setOnClickListener { itemClick(review) }
         }
 
     }
@@ -46,4 +52,16 @@ class ReviewListAdapter (val context: Context, val data: ArrayList<ReviewData>, 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(data[position], context, position)
     }
+
+    fun checkAlreadyUp(dStr:String) : Boolean{
+        if(!UpList.isEmpty()) {
+            for (up in UpList) {
+                if (dStr == up)
+                    return true
+            }
+        }
+        return false
+    }
+
+
 }

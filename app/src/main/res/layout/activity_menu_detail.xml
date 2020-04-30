@@ -172,14 +172,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="65dp">
 
         <com.sackcentury.shinebuttonlib.ShineButton
             android:id="@+id/btn_up"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
             android:src="@android:color/darker_gray"
+            android:clickable="false"
             app:allow_random_color="false"
             app:big_shine_color="#FF6666"
             app:btn_color="@android:color/darker_gray"
@@ -187,7 +191,7 @@
             app:click_animation_duration="200"
             app:enable_flashing="false"
             app:layout_constraintStart_toEndOf="@+id/txt_bestReview"
-            app:layout_constraintTop_toTopOf="@+id/txt_bestReview"
+            app:layout_constraintTop_toTopOf="parent"
             app:shine_animation_duration="1500"
             app:shine_count="8"
             app:shine_distance_multiple="1.5"
@@ -264,9 +268,10 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#000000"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
 
         <TextView
             android:id="@+id/textView7"
@@ -282,7 +287,7 @@
         <Button
             android:id="@+id/btn_review"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="평점주기"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

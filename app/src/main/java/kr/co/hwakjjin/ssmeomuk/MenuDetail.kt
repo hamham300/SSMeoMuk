@@ -1,34 +1,36 @@
 package kr.co.hwakjjin.ssmeomuk
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
-import android.widget.*
-import android.widget.Toast.LENGTH_LONG
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.CameraUpdate
-import kotlinx.android.synthetic.main.activity_diner_list.*
 import kotlinx.android.synthetic.main.activity_menu_detail.*
+import org.json.JSONArray
+import org.json.JSONException
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
+
 
 class MenuDetail : AppCompatActivity() {
     private var rList = arrayListOf<ReviewData>()
+    private var UpList = arrayListOf<String>()
     var context= this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_detail)
+
+        val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
 
 
         val moneyComma: DecimalFormat = DecimalFormat("###,###");
@@ -43,6 +45,27 @@ class MenuDetail : AppCompatActivity() {
         txt_menu_price?.text = moneyComma.format(intent.extras!!.getInt("price")) + "원"
         txt_store_name?.text = dinerName
         txt_bestReview?.text = intent.extras!!.getString("bestReviewer")+" : "+ intent.extras!!.getString("bestReview")
+
+        btn_up?.isChecked
+        btn_up?.setChecked(true,true)
+        btn_up.isClickable = false
+
+
+        val jsonUp = pref.getString(menuCode+"Up",null)
+
+        if (jsonUp != null) {
+            try {
+                val a = JSONArray(jsonUp)
+                for (i in 0 until a.length()) {
+                    val url = a.optString(i)
+                    UpList.add(url)
+                }
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+
+
 
         btn_review.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -61,7 +84,6 @@ class MenuDetail : AppCompatActivity() {
             val reviewRef = database.getReference(reviewPath)
             val menuDataRef = database.getReference(menuDataPath)
 
-            val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
 
             val reviewHistory = pref.getString(menuCode,"")
             if(reviewHistory != ""){ // 이미 작성글이 있다.
@@ -153,7 +175,36 @@ class MenuDetail : AppCompatActivity() {
                                 content["rate"].toString().toFloat(),content["up"].toString().toInt(),content["date"].toString()))
                         }
                     }
-                    val adapter = ReviewListAdapter(context, rList){ ReviewData->
+                    val adapter = ReviewListAdapter(context, rList, UpList){ ReviewData->
+                        var isClicked = false
+                        if(!UpList.isEmpty()) {
+                            var delIndex = -1
+                            UpList.forEachIndexed { index, s ->
+                                if (ReviewData.getCode() == s) {// 눌렀는데 이미 누른거야
+                                    isClicked =true
+                                    delIndex = index
+                                    //UpList.removeAt(index)
+                                }
+                            }
+                            if(delIndex > -1)
+                            UpList.removeAt(delIndex)
+                        }
+
+                        if(!isClicked){ // 이번에 새로 누름 -> 저장
+                            UpList.add( ReviewData.getCode().toString()) // 해당 리뷰의 코드를 SharedPreferences에 저장후
+                        }
+
+                        val json = JSONArray()
+                        for(i in UpList){
+                            json.put(i)
+                        }
+
+                        val ed = pref.edit()
+                        ed.putString(menuCode+"Up",json.toString()) //내가쓴 리뷰의 리뷰코드를 기기내에 가지고있는다.
+                        ed.apply()
+
+                       reviewList.adapter?.notifyDataSetChanged()
+
 
                     }
                     reviewList.adapter = adapter
