@@ -8,12 +8,14 @@
     android:orientation="vertical"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:context=".DinerList">
+    tools:context=".DinerList"
+    android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="65dp">
+        android:layout_height="65dp"
+        android:background="@color/colorWhite">
 
         <TextView
             android:id="@+id/txt_title"
@@ -23,22 +25,24 @@
             android:gravity="center_horizontal"
             android:text="TextView"
             android:textSize="25dp"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:text="뒤로"
-            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/btn_back"
+            android:padding="0sp"
+            android:scaleType="centerCrop"/>
 
         <Button
             android:id="@+id/btn_sort"
@@ -49,8 +53,10 @@
             android:layout_marginRight="16dp"
             android:text="평점순"
             android:textSize="15dp"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/btn_white_round"/>
     </androidx.constraintlayout.widget.ConstraintLayout
         >
 
@@ -58,7 +64,8 @@
         android:id="@+id/btnContainer"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        android:background="@color/colorWhite">
 
         <Button
             android:id="@+id/btn_haksik"
@@ -68,10 +75,13 @@
             android:layout_marginEnd="40dp"
             android:layout_marginRight="40dp"
             android:text="학식"
+            android:textSize="8pt"
+            android:textColor="#000000"
             android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/btn_gyosik"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:background="@drawable/btn_white_round"/>
 
         <Button
             android:id="@+id/btn_gyosik"
@@ -79,12 +89,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="교식"
+            android:textSize="8pt"
+            android:textColor="#000000"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:background="@drawable/btn_white_round"/>
 
         <Button
             android:id="@+id/btn_gisik"
@@ -94,10 +107,13 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="4dp"
             android:text="기식"
+            android:textSize="8pt"
+            android:textColor="#000000"
             android:visibility="visible"
             app:layout_constraintStart_toEndOf="@+id/btn_gyosik"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:background="@drawable/btn_white_round"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,11 +124,12 @@
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:divider="#ffffff"
-        android:dividerHeight="4dp"
+        android:dividerHeight="2dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        android:background="@color/colorWhite">
 
     </androidx.recyclerview.widget.RecyclerView>
 

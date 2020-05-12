@@ -38,9 +38,6 @@ class DinerList : AppCompatActivity() {
 
         setListData()
 
-
-
-
         MobileAds.initialize(this) {}
         mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()

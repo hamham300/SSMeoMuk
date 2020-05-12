@@ -96,20 +96,19 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="13dp"
                 android:text="ID 상현돼지 : ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
-               />
+                />
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/gold_thumb_up"/>
+                app:srcCompat="@drawable/bronze_thumb_up"/>
 
             <TextView
                 android:id="@+id/txt_reviewup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center"
                 android:text="66"

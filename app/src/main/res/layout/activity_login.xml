@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/colorWhite">
 
     <ImageView
         android:layout_above="@+id/signin_layout"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/splash_logo"/>
+        android:src="@drawable/splash_logo2"/>
 
     <LinearLayout
         android:id="@+id/signin_layout"

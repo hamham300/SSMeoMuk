@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val ed = pref.edit()
         ed.clear()
         ed.apply()
+        btn_back.visibility = View.INVISIBLE
 
         btn_price.setOnClickListener(View.OnClickListener {
             price_select_layout.visibility = View.VISIBLE
