@@ -43,7 +43,6 @@ class DinerList : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
-
         if (title == "~ 5000") {
             btnContainer.visibility = View.VISIBLE
             btn_haksik.setOnClickListener {

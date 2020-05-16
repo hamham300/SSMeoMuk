@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/splash_logo2">
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/splash_logo2"
+        android:background="@color/colorWhite"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <ImageButton
@@ -25,10 +32,10 @@
         android:id="@+id/btn_menu"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="420dp"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
-        android:fontFamily="@font/dx_seingwana"
+
         android:text="메뉴"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +48,8 @@
         android:layout_height="80dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="350dp"
-        android:fontFamily="@font/dx_seingwana"
+        android:layout_marginTop="420dp"
+
         android:text="가격"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +60,7 @@
         android:id="@+id/price_select_layout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +74,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:fontFamily="@font/dx_seingwana"
+
             android:text="~5000"
             android:textSize="20sp"
             android:background="@drawable/btn_white_round"/>
@@ -79,7 +86,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:fontFamily="@font/dx_seingwana"
+
             android:text="5000~6000"
             android:textSize="20sp"
             android:background="@drawable/btn_white_round"/>
@@ -91,7 +98,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:fontFamily="@font/dx_seingwana"
+
             android:text="6000~7000"
             android:textSize="20sp"
             android:background="@drawable/btn_white_round"/>
@@ -103,7 +110,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:fontFamily="@font/dx_seingwana"
+
             android:text="7000~"
             android:textSize="20sp"
             android:background="@drawable/btn_white_round"/>
@@ -115,7 +122,7 @@
         android:layout_width="match_parent"
         android:numColumns="3"
         android:layout_height="500dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +138,7 @@
         android:layout_marginStart="160dp"
         android:layout_marginLeft="160dp"
         android:layout_marginBottom="60dp"
-        android:fontFamily="@font/dx_seingwana"
+
         android:text="Log in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -37,7 +37,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="20dp"
-            android:fontFamily="@font/dx_seingwana"
+
             android:layout_gravity="center|bottom"
             android:text="제육덮밥 - 숭실골" />
 

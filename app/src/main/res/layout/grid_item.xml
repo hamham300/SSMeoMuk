@@ -19,6 +19,6 @@
         android:gravity="center"
         android:text="한식"
         android:textSize = "20sp"
-        android:fontFamily="@font/dx_seingwana"/>
+        />
 
 </LinearLayout>
