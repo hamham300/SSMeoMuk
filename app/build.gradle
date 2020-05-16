@@ -47,4 +47,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.sackcentury:shinebutton:1.0.0'
+
+    // 카카오 로그인 sdk를 사용하기 위해 필요.
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.23.0'
 }

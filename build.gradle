@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
@@ -26,6 +26,13 @@ allprojects {
             url 'https://navercorp.bintray.com/maps'
         }
         
+    }
+}
+subprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'
+        }
     }
 }
 

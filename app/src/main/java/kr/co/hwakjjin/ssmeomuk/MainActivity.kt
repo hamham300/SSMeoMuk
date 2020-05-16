@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             btn_back.visibility = View.VISIBLE
             btn_menu.visibility = View.INVISIBLE
             btn_price.visibility = View.INVISIBLE
+            test_btn.visibility = View.INVISIBLE
         })
 
         btn_menu.setOnClickListener(View.OnClickListener {
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             btn_back.visibility = View.VISIBLE
             btn_menu.visibility = View.INVISIBLE
             btn_price.visibility = View.INVISIBLE
+            test_btn.visibility = View.INVISIBLE
         })
 
         btn_back.setOnClickListener(View.OnClickListener {
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             btn_back.visibility = View.INVISIBLE
             btn_menu.visibility = View.VISIBLE
             btn_price.visibility = View.VISIBLE
+            test_btn.visibility = View.VISIBLE
         })
 
         btn_under5.setOnClickListener(View.OnClickListener {
