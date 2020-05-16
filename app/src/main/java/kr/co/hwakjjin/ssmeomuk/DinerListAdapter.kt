@@ -35,7 +35,7 @@ class DinerListAdapter( val context: Context,  val data: ArrayList<MenuData>, va
         fun bind(menu: MenuData, context: Context , itemCount: Int){
             count?.text = (itemCount+1).toString()+"."
             foodImage?.setImageResource(menu.getFoodPic())
-            menuText?.text = menu.getMenuTxt() + " - " + menu.getDiner()
+            menuText?.text = menu.getMenuTxt() + "\n" + menu.getDiner()
             rating?.rating = menu.getRate()
             rate?.text = menu.getRate().toString() + "/ 5.0"
             price?.text = moneyComma.format(menu.getPrice()) + "원"
