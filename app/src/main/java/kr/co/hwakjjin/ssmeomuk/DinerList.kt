@@ -174,6 +174,7 @@ class DinerList : AppCompatActivity() {
                 }
                 recyclerview.adapter = adapter
                 recyclerview.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
+                
 
                 val lm = LinearLayoutManager(context)
                 recyclerview.layoutManager = lm
