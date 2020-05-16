@@ -6,4 +6,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="duskYellow">#F3C41D</color>
     <color name="lightGray">#B1AFAF</color>
+    <color name="dividerColor">#000000</color>
 </resources>

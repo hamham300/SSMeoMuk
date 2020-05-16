@@ -13,6 +13,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val img = arrayOf(
+            R.drawable.btn_korean,
+            R.drawable.btn_japanese,
+            R.drawable.btn_chinese,
+            R.drawable.btn_western,
+            R.drawable.btn_night_snack,
+            R.drawable.btn_franchise,
+            R.drawable.btn_cafe,
+            R.drawable.btn_drink,
+            R.drawable.btn_ranking
+        )
+
+        val text = arrayOf(
+            "한식",
+            "일식",
+            "중식",
+            "양식",
+            "야식",
+            "프랜차이즈",
+            "카페",
+            "술집",
+            "랭킹"
+        )
+
+        val gridviewAdapter = GridviewAdapter(this, img, text)
+        menu_select_gridView.adapter = gridviewAdapter
+
+
         // sharedPreference 초기화
         val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
         val ed = pref.edit()
@@ -28,14 +56,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         btn_menu.setOnClickListener(View.OnClickListener {
-            menu_select_layout.visibility = View.VISIBLE
+            menu_select_gridView.visibility = View.VISIBLE
             btn_back.visibility = View.VISIBLE
             btn_menu.visibility = View.INVISIBLE
             btn_price.visibility = View.INVISIBLE
         })
 
         btn_back.setOnClickListener(View.OnClickListener {
-            menu_select_layout.visibility = View.INVISIBLE
+            menu_select_gridView.visibility = View.INVISIBLE
             price_select_layout.visibility = View.INVISIBLE
             btn_back.visibility = View.INVISIBLE
             btn_menu.visibility = View.VISIBLE
