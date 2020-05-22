@@ -28,15 +28,16 @@
                 android:id="@+id/txt_menu_name"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="8dp"
                 android:ellipsize="end"
                 android:ems="10"
+                android:gravity="center"
                 android:maxLines="2"
                 android:text="불고기ㅇㅇㅇㅇㅇㅇㅇㅇ"
                 android:textSize="25dp"
-                android:gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textSize="25dp"
+                android:textSize="23dp"
                 android:text="5,000원"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +104,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="258dp"
         android:orientation="horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,23 +116,26 @@
                 android:id="@+id/txt_store_name"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:layout_marginTop="40dp"
                 android:gravity="center"
+                android:text="TextView"
+
+                android:textSize="15dp"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="16dp" />
 
             <RatingBar
                 android:id="@+id/rating_store"
                 style="?android:attr/ratingBarStyleSmall"
-                android:theme="@style/RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:max="5"
                 android:numStars="5"
                 android:rating="4.5"
                 android:stepSize="0.1"
+                android:theme="@style/RatingBar"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
@@ -151,7 +155,8 @@
                 android:id="@+id/txt_store_location"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="TextView"
+                android:gravity="center"
+                android:text="위치"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +165,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <fragment
-            android:id="@+id/map"
+            android:id="@+id/naver_map"
             android:name="com.naver.maps.map.MapFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -257,16 +262,15 @@
             app:layout_constraintStart_toEndOf="@+id/btn_up"
             app:layout_constraintTop_toTopOf="@+id/btn_up" />
 
-        <TextView
-            android:id="@+id/txt_best_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:text="5.0"
-            app:layout_constraintStart_toEndOf="@+id/rating_best"
-            app:layout_constraintTop_toTopOf="@+id/rating_best" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txt_best_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="5.0" />
 
     <View
         android:layout_width="match_parent"

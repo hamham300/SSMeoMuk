@@ -35,11 +35,22 @@
             android:id="@+id/txt_menu"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="20dp"
-
             android:layout_gravity="center|bottom"
-            android:text="제육덮밥 - 숭실골" />
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:text="제육덮밥"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_diner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="숭실골고기마을"
+            android:textSize="15dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +102,7 @@
                 android:id="@+id/txt_bestReview"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"

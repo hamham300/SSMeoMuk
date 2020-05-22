@@ -1,11 +1,14 @@
 package kr.co.hwakjjin.ssmeomuk
 
 import android.content.Context
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.annotation.UiThread
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,6 +17,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.MarkerIcons
 import kotlinx.android.synthetic.main.activity_menu_detail.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -21,17 +29,18 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class MenuDetail : AppCompatActivity() {
+class MenuDetail : AppCompatActivity(), OnMapReadyCallback{
     private var rList = arrayListOf<ReviewData>()
     private var UpList = arrayListOf<String>()
     var context= this
+    var location : LatLng = LatLng(37.487936, 126.825071)
+    lateinit var naver_map : NaverMap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_detail)
 
         val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
-
 
         val moneyComma: DecimalFormat = DecimalFormat("###,###");
         val intent = intent /*데이터 수신*/
@@ -46,13 +55,17 @@ class MenuDetail : AppCompatActivity() {
         txt_store_name?.text = dinerName
         txt_bestReview?.text = intent.extras!!.getString("bestReviewer")+" : "+ intent.extras!!.getString("bestReview")
         bestReviewUp?.text = intent.extras!!.getInt("bestReviewUp").toString()
-
         btn_up?.isChecked
         btn_up?.setChecked(true,true)
         btn_up.isClickable = false
-
-
         val jsonUp = pref.getString(menuCode+"Up",null)
+
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.naver_map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id. naver_map, it).commit()
+            }
+        mapFragment.getMapAsync(this)
 
         if (jsonUp != null) {
             try {
@@ -65,8 +78,6 @@ class MenuDetail : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-
-
 
         btn_review.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -102,9 +113,8 @@ class MenuDetail : AppCompatActivity() {
             dialogRate.setOnRatingBarChangeListener { ratingBar, fl, b ->
                 dialogTxtRate.text = fl.toString() + "/ 5.0"
             }
+
             dialogBtnEnroll.setOnClickListener {
-
-
                 val date = Date(System.currentTimeMillis())
                 val sdfNow = SimpleDateFormat("yyyyMMddHHmmss");
                 val strDate = sdfNow.format(date);
@@ -132,8 +142,6 @@ class MenuDetail : AppCompatActivity() {
                 rating.rating = rateAvg/(rList.size+1)
                 txt_rating.text =  ( rateAvg/(rList.size+1)).toString() + "/ 5.0"
 
-
-
                 menuDataRef.child("rate").setValue( rateAvg/(rList.size+1))
 
                 dialog.dismiss()
@@ -156,15 +164,24 @@ class MenuDetail : AppCompatActivity() {
 
                 value as HashMap <*,*>
                 txt_store_location.text  = value["location"].toString()
+                location = LatLng(value["pointX"].toString().toDouble(), value["pointY"].toString().toDouble())
+                if(::naver_map.isInitialized){
+                    val marker = Marker()
+                    marker.position = location
+                    marker.map = naver_map
+                    marker.icon = MarkerIcons.PINK
+                    naver_map.cameraPosition = CameraPosition(location, 18.0)
+                }
                 txt_store_rate.text = value["rate"].toString()+ "/ 5.0"
                 rating_store.rating = value["rate"].toString().toFloat()
-
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
             }
+
         })
+
 
         val reviewPath = "0/review/"+menuCode
         val reviewRef = database.getReference(reviewPath)
@@ -265,12 +282,22 @@ class MenuDetail : AppCompatActivity() {
         })
 
 
-        fun refreshBestReview( list: ArrayList<ReviewData>){
-            for(rData in list){
+        fun refreshBestReview( list: ArrayList<ReviewData>) {
+            for (rData in list) {
 
             }
         }
+    }
 
+    @UiThread
+    @Override
+    override fun onMapReady(naverMap: NaverMap) {
+        naver_map = naverMap
+        val marker = Marker()
+        marker.position = location
+        marker.map = naverMap
+        marker.icon = MarkerIcons.PINK
+        naverMap.cameraPosition = CameraPosition(location, 18.0)
 
     }
 }

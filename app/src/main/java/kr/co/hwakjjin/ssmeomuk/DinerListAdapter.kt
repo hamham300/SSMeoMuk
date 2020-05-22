@@ -24,6 +24,7 @@ class DinerListAdapter( val context: Context,  val data: ArrayList<MenuData>, va
     inner class Holder(view: View?, itemClick: (MenuData) -> Unit) : RecyclerView.ViewHolder(view!!){
         val foodImage  = view?.findViewById<ImageView>(R.id.img_food)
         val menuText = view?.findViewById<TextView>(R.id.txt_menu)
+        val dinerText = view?.findViewById<TextView>(R.id.txt_diner)
         val rating = view?.findViewById<RatingBar>(R.id.rating)
         val rate = view?.findViewById<TextView>(R.id.txt_rate)
         val price = view?.findViewById<TextView>(R.id.txt_price)
@@ -35,7 +36,8 @@ class DinerListAdapter( val context: Context,  val data: ArrayList<MenuData>, va
         fun bind(menu: MenuData, context: Context , itemCount: Int){
             count?.text = (itemCount+1).toString()+"."
             foodImage?.setImageResource(menu.getFoodPic())
-            menuText?.text = menu.getMenuTxt() + "\n" + menu.getDiner()
+            menuText?.text = menu.getMenuTxt()
+            dinerText?.text = "<"+ menu.getDiner() +">"
             rating?.rating = menu.getRate()
             rate?.text = menu.getRate().toString() + "/ 5.0"
             price?.text = moneyComma.format(menu.getPrice()) + "원"
