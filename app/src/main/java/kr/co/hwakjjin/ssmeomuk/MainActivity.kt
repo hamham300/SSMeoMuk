@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.grid_item.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         val gridviewAdapter = GridviewAdapter(this, img, text)
         menu_select_gridView.adapter = gridviewAdapter
+
+        menu_select_gridView.setOnItemClickListener { adapterView, view, i, l ->
+            val intent = Intent(applicationContext, DinerList::class.java)
+            intent.putExtra("title",view.gridview_text.text)
+            startActivity(intent)
+        }
 
 
         // sharedPreference 초기화

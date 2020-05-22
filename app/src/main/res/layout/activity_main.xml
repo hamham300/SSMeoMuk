@@ -60,13 +60,13 @@
         android:id="@+id/price_select_layout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/colorWhite"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible"
-        android:background="@color/colorWhite">>
+        tools:visibility="invisible">>
 
         <Button
             android:id="@+id/btn_under5"
@@ -75,9 +75,9 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
 
+            android:background="@drawable/btn_white_round"
             android:text="~5000"
-            android:textSize="20sp"
-            android:background="@drawable/btn_white_round"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_5to6"
@@ -87,9 +87,9 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
 
+            android:background="@drawable/btn_white_round"
             android:text="5000~6000"
-            android:textSize="20sp"
-            android:background="@drawable/btn_white_round"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_6to7"
@@ -99,9 +99,9 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
 
+            android:background="@drawable/btn_white_round"
             android:text="6000~7000"
-            android:textSize="20sp"
-            android:background="@drawable/btn_white_round"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_over7"
@@ -111,9 +111,9 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
 
+            android:background="@drawable/btn_white_round"
             android:text="7000~"
-            android:textSize="20sp"
-            android:background="@drawable/btn_white_round"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 

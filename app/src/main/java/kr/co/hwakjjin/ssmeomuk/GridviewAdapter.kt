@@ -8,6 +8,8 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.grid_item.view.*
 
 class GridviewAdapter(val context: Context, val img_list : Array<Int>, val text_list : Array<String>) : BaseAdapter() {
+
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
 
@@ -20,7 +22,7 @@ class GridviewAdapter(val context: Context, val img_list : Array<Int>, val text_
     }
 
     override fun getItem(position: Int): Any {
-        return 0
+        return text_list[position]
     }
 
     override fun getItemId(position: Int): Long {
