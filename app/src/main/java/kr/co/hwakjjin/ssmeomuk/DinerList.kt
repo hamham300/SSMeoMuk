@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_diner_list.*
 import java.util.*
+import kotlin.Comparator
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
@@ -26,9 +27,10 @@ import kotlin.collections.HashSet
 class DinerList : AppCompatActivity() {
 
     lateinit var mAdView : AdView
-    private var mList = arrayListOf<MenuData>()
+    private var mList = ArrayList<MenuData>()
     var context= this
     lateinit var title : String
+    var adapter = DinerListAdapter(context,mList){}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,16 +89,31 @@ class DinerList : AppCompatActivity() {
             val dialogBtnLowPrice = dialogView.findViewById<Button>(R.id.btn_high_price)
             val dialogBtnRateNum = dialogView.findViewById<Button>(R.id.btn_rate_num)
             dialogBtnRate.setOnClickListener{
-
+                val a = ArrayList(mList.sortedByDescending {it.getRate() })
+                mList.clear()
+                mList.addAll(a)
+                recyclerview.adapter?.notifyDataSetChanged()
+                btn_sort.text = "평점순"
+                dialog.dismiss()
             }
             dialogBtnHighPrice.setOnClickListener{
-
+                val a =  ArrayList(mList.sortedBy {it.getPrice() })
+                mList.clear()
+                mList.addAll(a)
+                recyclerview.adapter?.notifyDataSetChanged()
+                btn_sort.text = "가격낮은순";
+                dialog.dismiss()
             }
             dialogBtnLowPrice.setOnClickListener{
-
+                val a =  ArrayList(mList.sortedByDescending {it.getPrice() })
+                mList.clear()
+                mList.addAll(a)
+                recyclerview.adapter?.notifyDataSetChanged()
+                btn_sort.text = "가격높은순";
+                dialog.dismiss()
             }
             dialogBtnRateNum.setOnClickListener{
-
+                dialog.dismiss()
             }
 
             dialog.setView(dialogView)
@@ -113,7 +130,7 @@ class DinerList : AppCompatActivity() {
 
     private fun setListData() {
 
-        mList = ArrayList<MenuData>()
+       // mList = ArrayList<MenuData>()
 
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("0/menu")
@@ -205,7 +222,7 @@ class DinerList : AppCompatActivity() {
                     }
                 }
 
-                val adapter = DinerListAdapter(context, mList){ MenuData ->
+                 adapter = DinerListAdapter(context, mList){ MenuData ->
                     val intent = Intent(applicationContext, MenuDetail::class.java)
                     intent.putExtra("code", MenuData.getCode())
                     intent.putExtra("foodPic", MenuData.getFoodPic())
