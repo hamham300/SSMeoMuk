@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,6 +73,34 @@ class DinerList : AppCompatActivity() {
 
         btn_back.setOnClickListener{
             finish()
+        }
+
+
+
+        btn_sort.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            val dialog  = builder.create()
+
+            val dialogView = layoutInflater.inflate(R.layout.dialog_sort, null)
+            val dialogBtnRate = dialogView.findViewById<Button>(R.id.btn_rate)
+            val dialogBtnHighPrice = dialogView.findViewById<Button>(R.id.btn_low_price)
+            val dialogBtnLowPrice = dialogView.findViewById<Button>(R.id.btn_high_price)
+            val dialogBtnRateNum = dialogView.findViewById<Button>(R.id.btn_rate_num)
+            dialogBtnRate.setOnClickListener{
+
+            }
+            dialogBtnHighPrice.setOnClickListener{
+
+            }
+            dialogBtnLowPrice.setOnClickListener{
+
+            }
+            dialogBtnRateNum.setOnClickListener{
+
+            }
+
+            dialog.setView(dialogView)
+            dialog.show()
         }
 
 
@@ -196,6 +226,8 @@ class DinerList : AppCompatActivity() {
                 val lm = LinearLayoutManager(context)
                 recyclerview.layoutManager = lm
                 recyclerview.setHasFixedSize(true)
+
+                btn_sort.visibility = View.VISIBLE
 
             }
 
