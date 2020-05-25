@@ -104,6 +104,6 @@ class MainActivity : AppCompatActivity() {
         test_btn.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
-        })
+        })//asdasdsa
     }
 }
