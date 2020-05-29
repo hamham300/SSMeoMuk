@@ -3,6 +3,7 @@ package kr.co.hwakjjin.ssmeomuk
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -139,20 +140,25 @@ class DinerList : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+
                 val value = dataSnapshot.value
                 if(value is HashMap<*,*>){
                     for (hash in value){
                         val code = hash.key;
                         val content = hash.value;
                         if(content is HashMap<*,*>) {
+                            Log.d("Test", "@drawable/$code")
+                            var menuPic = context.resources.getIdentifier("@drawable/$code","id", context.packageName)
+                            if(menuPic == 0) menuPic = R.drawable.defaultpic
+                            Log.d("Test",menuPic.toString())
                             if(title == "~ 5000" ||  title == "5000 ~ 6000" || title == "6000 ~ 7000" || title == "7000 ~") {
                                 val pStr = content["price"].toString()
                                 val price = Integer.parseInt(pStr)
-
+                                Log.d("Test",code.toString())
                                 if (price <= 5000 && title == "~ 5000") mList.add(
                                     MenuData(
                                         code.toString(),
-                                        R.drawable.sausagerice,
+                                        menuPic,
                                         content["txt_menu"].toString(),
                                         content["txt_diner"].toString(),
                                         content["rate"].toString().toFloat(),
@@ -165,7 +171,7 @@ class DinerList : AppCompatActivity() {
                                 else if (price in 5000..6000 && title == "5000 ~ 6000") mList.add(
                                     MenuData(
                                         code.toString(),
-                                        R.drawable.sausagerice,
+                                        menuPic,
                                         content["txt_menu"].toString(),
                                         content["txt_diner"].toString(),
                                         content["rate"].toString().toFloat(),
@@ -178,7 +184,7 @@ class DinerList : AppCompatActivity() {
                                 else if (price in 6000..7000 && title == "6000 ~ 7000") mList.add(
                                     MenuData(
                                         code.toString(),
-                                        R.drawable.sausagerice,
+                                        menuPic,
                                         content["txt_menu"].toString(),
                                         content["txt_diner"].toString(),
                                         content["rate"].toString().toFloat(),
@@ -191,7 +197,7 @@ class DinerList : AppCompatActivity() {
                                 else if (price >= 7000 && title == "7000 ~") mList.add(
                                     MenuData(
                                         code.toString(),
-                                        R.drawable.sausagerice,
+                                        menuPic,
                                         content["txt_menu"].toString(),
                                         content["txt_diner"].toString(),
                                         content["rate"].toString().toFloat(),
@@ -207,7 +213,7 @@ class DinerList : AppCompatActivity() {
                                 if (typeStr == title ) mList.add(
                                     MenuData(
                                         code.toString(),
-                                        R.drawable.sausagerice,
+                                        menuPic,
                                         content["txt_menu"].toString(),
                                         content["txt_diner"].toString(),
                                         content["rate"].toString().toFloat(),
